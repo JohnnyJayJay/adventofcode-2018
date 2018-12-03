@@ -7,15 +7,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Johnny_JayJay (https://www.github.com/JohnnyJayJay)
  */
-public class Solution {
+public class Solution01 {
 
     public static void main(String[] args) throws IOException {
         Path input = Paths.get(args.length > 0 ? args[0] : "./01/input.txt"); // get the file
-        List<Integer> frequencyChanges = Files.lines(input).map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> frequencyChanges;
+        try (Stream<String> lines = Files.lines(input)) {
+            frequencyChanges = lines.map(Integer::parseInt).collect(Collectors.toList());
+        }
 
         assert !frequencyChanges.isEmpty();
 

@@ -24,18 +24,18 @@ public class Solution01 {
         assert !frequencyChanges.isEmpty();
 
         // Task 1
-        int resultFrequency = frequencyChanges.stream().mapToInt(i -> i).sum();
+        int resultFrequency = frequencyChanges.stream().mapToInt(i -> i).sum(); // sum all frequency changes
         System.out.printf("Result frequency: %d%n", resultFrequency);
 
         // Task 2
-        Set<Integer> checkedFrequencies = new HashSet<>();
-        Iterator<Integer> changeIterator = frequencyChanges.iterator();
+        Set<Integer> checkedFrequencies = new HashSet<>(); // frequencies that have already been checked
 
         int currentFrequency;
-
-        for (currentFrequency = 0; checkedFrequencies.add(currentFrequency); currentFrequency += changeIterator.next()) {
-            if (!changeIterator.hasNext())
-                changeIterator = frequencyChanges.iterator();
+        int listIndex = -1; // iterator variable
+        for (currentFrequency = 0; checkedFrequencies.add(currentFrequency); currentFrequency += frequencyChanges.get(listIndex)) {
+            listIndex++;
+            if (listIndex == frequencyChanges.size()) // start from the beginning
+                listIndex = 0;
         }
 
         System.out.printf("Double frequency: %d", currentFrequency);

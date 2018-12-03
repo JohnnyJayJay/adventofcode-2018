@@ -13,12 +13,15 @@ public class Solution02 {
         Path input = Paths.get(args.length > 0 ? args[0] : "./02/input.txt");
         List<String> ids = Files.readAllLines(input);
 
+        assert !ids.isEmpty();
+
         // Task 1
         int twiceAmount = 0;
         int threeTimesAmount = 0;
 
         for (String id : ids) {
             char[] characters = id.toCharArray();
+            // only check for one occurrence each
             boolean twiceChecked = false;
             boolean threeTimesChecked = false;
             for (char character : characters) {
@@ -51,7 +54,7 @@ public class Solution02 {
                     else
                         correctId2 = currentId;
 
-                    if (correctId2 != null)
+                    if (correctId2 != null) // if both ids found
                         break search;
 
                     break;
@@ -61,6 +64,7 @@ public class Solution02 {
 
         assert correctId1 != null && correctId2 != null;
 
+        // calculate the position both id's difference is at
         int differencePosition = 0;
         for (int i = 0; i < correctId1.length(); i++) {
             if (correctId1.charAt(i) != correctId2.charAt(i)) {
@@ -69,10 +73,12 @@ public class Solution02 {
             }
         }
 
+        // concatenate the part before and after the difference; no replace usage to avoid wrong replacements
         String commonString = correctId1.substring(0, differencePosition) + correctId1.substring(differencePosition + 1);
         System.out.printf("Common characters: %s", commonString);
     }
 
+    // how many character differences do 2 strings have
     private static int differences(String s1, String s2) {
         int differences = 0;
 
@@ -86,6 +92,7 @@ public class Solution02 {
         return differences;
     }
 
+    // how often does a char array contain a specific char
     private static int frequency(char c, char[] chars) {
         int count = 0;
         for (char element : chars) {
